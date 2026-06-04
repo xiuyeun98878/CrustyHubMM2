@@ -1,223 +1,176 @@
-loadstring(game:HttpGet("https://pastefy.app/FDipTVYZ/raw"))()
-
 local Players = game:GetService("Players")
 local TweenService = game:GetService("TweenService")
 
 local player = Players.LocalPlayer
 local playerGui = player:WaitForChild("PlayerGui")
 
-if playerGui:FindFirstChild("CrustyHubLoading") then
-	playerGui.CrustyHubLoading:Destroy()
-end
+-- Remove old GUI if existing
+pcall(function()
+	playerGui:FindFirstChild("CrustyCrubLoader"):Destroy()
+end)
 
 -- GUI
 local gui = Instance.new("ScreenGui")
-gui.Name = "CrustyHubLoading"
+gui.Name = "CrustyCrubLoader"
 gui.ResetOnSpawn = false
 gui.Parent = playerGui
 
--- Main Window
-local frame = Instance.new("Frame")
-frame.Size = UDim2.new(0, 430, 0, 190)
-frame.Position = UDim2.new(0.5, -215, 0.5, -95)
-frame.BackgroundColor3 = Color3.fromRGB(155, 100, 255)
-frame.BorderSizePixel = 0
-frame.Active = true
-frame.Draggable = true
-frame.Parent = gui
+-- Main Frame
+local main = Instance.new("Frame")
+main.Size = UDim2.new(0, 430, 0, 240)
+main.Position = UDim2.new(0.5, -215, 0.5, -120)
+main.BackgroundColor3 = Color3.fromRGB(115, 65, 190)
+main.BorderSizePixel = 0
+main.Active = true
+main.Draggable = true
+main.Parent = gui
 
 local corner = Instance.new("UICorner")
-corner.CornerRadius = UDim.new(0, 24)
-corner.Parent = frame
+corner.CornerRadius = UDim.new(0, 14)
+corner.Parent = main
 
 local stroke = Instance.new("UIStroke")
-stroke.Color = Color3.fromRGB(220, 180, 255)
-stroke.Thickness = 3
-stroke.Parent = frame
+stroke.Color = Color3.fromRGB(255,255,255)
+stroke.Thickness = 2
+stroke.Parent = main
 
--- Soft Glow
-local glow = Instance.new("ImageLabel")
-glow.BackgroundTransparency = 1
-glow.Image = "rbxassetid://5028857084"
-glow.ImageTransparency = 0.35
-glow.Size = UDim2.new(1, 80, 1, 80)
-glow.Position = UDim2.new(0, -40, 0, -40)
-glow.ZIndex = 0
-glow.Parent = frame
+-- Top Glow
+local topBar = Instance.new("Frame")
+topBar.Size = UDim2.new(1,0,0,6)
+topBar.BackgroundColor3 = Color3.fromRGB(255,255,255)
+topBar.BorderSizePixel = 0
+topBar.Parent = main
+
+local topCorner = Instance.new("UICorner")
+topCorner.CornerRadius = UDim.new(1,0)
+topCorner.Parent = topBar
 
 -- Title
 local title = Instance.new("TextLabel")
-title.Size = UDim2.new(1, 0, 0, 45)
+title.Size = UDim2.new(1,0,0,50)
+title.Position = UDim2.new(0,0,0.03,0)
 title.BackgroundTransparency = 1
-title.Text = "💜 loading crustyhub 💜"
-title.Font = Enum.Font.GothamBold
-title.TextSize = 28
+title.Text = "Loading CrustyCrub Hub MM2"
 title.TextColor3 = Color3.fromRGB(255,255,255)
-title.Parent = frame
+title.Font = Enum.Font.GothamBold
+title.TextScaled = true
+title.Parent = main
 
--- Cute Cat
-local cat = Instance.new("TextLabel")
-cat.Size = UDim2.new(0, 80, 0, 35)
-cat.Position = UDim2.new(0, 8, 0, 5)
-cat.BackgroundTransparency = 1
-cat.Text = "૮ ˶ᵔ ᵕ ᵔ˶ ა"
-cat.Font = Enum.Font.GothamBold
-cat.TextScaled = true
-cat.TextColor3 = Color3.fromRGB(255,255,255)
-cat.Parent = frame
+-- Creator
+local creator = Instance.new("TextLabel")
+creator.Size = UDim2.new(1,0,0,25)
+creator.Position = UDim2.new(0,0,0.22,0)
+creator.BackgroundTransparency = 1
+creator.Text = "by zlhub56"
+creator.TextColor3 = Color3.fromRGB(220,220,220)
+creator.Font = Enum.Font.GothamMedium
+creator.TextScaled = true
+creator.Parent = main
 
--- Status Text
-local status = Instance.new("TextLabel")
-status.Size = UDim2.new(1, -40, 0, 30)
-status.Position = UDim2.new(0, 20, 0, 65)
-status.BackgroundTransparency = 1
-status.Text = "configuring assets..."
-status.Font = Enum.Font.Gotham
-status.TextSize = 20
-status.TextXAlignment = Enum.TextXAlignment.Left
-status.TextColor3 = Color3.fromRGB(240,240,240)
-status.Parent = frame
+-- MM2 Inspired Knife
+local knife = Instance.new("Frame")
+knife.Size = UDim2.new(0,160,0,10)
+knife.Position = UDim2.new(0.5,-80,0.40,0)
+knife.BackgroundColor3 = Color3.fromRGB(255,255,255)
+knife.BorderSizePixel = 0
+knife.Rotation = -15
+knife.Parent = main
 
--- Loading Bar Background
-local barBG = Instance.new("Frame")
-barBG.Size = UDim2.new(0.85, 0, 0, 22)
-barBG.Position = UDim2.new(0.075, 0, 0.58, 0)
-barBG.BackgroundColor3 = Color3.fromRGB(120, 70, 200)
-barBG.BorderSizePixel = 0
-barBG.Parent = frame
+local knifeCorner = Instance.new("UICorner")
+knifeCorner.CornerRadius = UDim.new(1,0)
+knifeCorner.Parent = knife
+
+-- Progress Bar Background
+local barBg = Instance.new("Frame")
+barBg.Size = UDim2.new(0.84,0,0,26)
+barBg.Position = UDim2.new(0.08,0,0.68,0)
+barBg.BackgroundColor3 = Color3.fromRGB(70,40,130)
+barBg.BorderSizePixel = 0
+barBg.Parent = main
 
 local barCorner = Instance.new("UICorner")
 barCorner.CornerRadius = UDim.new(1,0)
-barCorner.Parent = barBG
+barCorner.Parent = barBg
 
--- Actual Bar
-local bar = Instance.new("Frame")
-bar.Size = UDim2.new(0.99, 0, 1, 0)
-bar.BackgroundColor3 = Color3.fromRGB(255,255,255)
-bar.BorderSizePixel = 0
-bar.Parent = barBG
+-- Progress Fill
+local fill = Instance.new("Frame")
+fill.Size = UDim2.new(0,0,1,0)
+fill.BackgroundColor3 = Color3.fromRGB(255,255,255)
+fill.BorderSizePixel = 0
+fill.Parent = barBg
 
-local barCorner2 = Instance.new("UICorner")
-barCorner2.CornerRadius = UDim.new(1,0)
-barCorner2.Parent = bar
+local fillCorner = Instance.new("UICorner")
+fillCorner.CornerRadius = UDim.new(1,0)
+fillCorner.Parent = fill
 
--- Percent
+-- Status Text
+local status = Instance.new("TextLabel")
+status.Size = UDim2.new(1,0,0,30)
+status.Position = UDim2.new(0,0,0.82,0)
+status.BackgroundTransparency = 1
+status.Text = "Initializing..."
+status.TextColor3 = Color3.fromRGB(255,255,255)
+status.Font = Enum.Font.GothamSemibold
+status.TextScaled = true
+status.Parent = main
+
+-- Percentage Text
 local percent = Instance.new("TextLabel")
-percent.Size = UDim2.new(1, 0, 0, 25)
-percent.Position = UDim2.new(0, 0, 0.72, 0)
+percent.Size = UDim2.new(0,70,0,22)
+percent.Position = UDim2.new(0.82,0,0.57,0)
 percent.BackgroundTransparency = 1
-percent.Text = "99%"
-percent.Font = Enum.Font.GothamBold
-percent.TextSize = 22
+percent.Text = "0%"
 percent.TextColor3 = Color3.fromRGB(255,255,255)
-percent.Parent = frame
+percent.Font = Enum.Font.GothamBold
+percent.TextScaled = true
+percent.Parent = main
 
--- Infinity Symbol
-local infinity = Instance.new("TextLabel")
-infinity.Size = UDim2.new(0, 70, 0, 40)
-infinity.Position = UDim2.new(1, -80, 0, 8)
-infinity.BackgroundTransparency = 1
-infinity.Text = "∞"
-infinity.Font = Enum.Font.GothamBlack
-infinity.TextScaled = true
-infinity.TextColor3 = Color3.fromRGB(255,255,255)
-infinity.Parent = frame
-
--- Status Messages
-local messages = {
-	"configuring assets...",
-	"loading modules...",
-	"syncing scripts...",
-	"injecting ui...",
-	"finalizing...",
-	"almost ready..."
+-- Loading stages
+local stages = {
+	"Configuring assets...",
+	"Loading modules...",
+	"Injecting MM2 framework...",
+	"Syncing scripts...",
+	"Preparing UI...",
+	"Connecting to server...",
+	"Finalizing...",
+	"Launching CrustyCrub Hub..."
 }
 
--- Fake Loading Animation
+-- Animate loading
 task.spawn(function()
-	local index = 1
-
-	while true do
-		status.Text = messages[index]
-
-		index += 1
-		if index > #messages then
-			index = 1
-		end
-
-		task.wait(1.2)
+	for i = 1, 100 do
+		local progress = i / 100
+		
+		fill.Size = UDim2.new(progress,0,1,0)
+		percent.Text = i .. "%"
+		
+		local stageIndex = math.clamp(math.ceil((i / 100) * #stages),1,#stages)
+		status.Text = stages[stageIndex]
+		
+		task.wait(0.2) -- 100 * 0.2 = 20 seconds
 	end
 end)
 
--- Floating Window Animation
-task.spawn(function()
-	while true do
-		local up = TweenService:Create(
-			frame,
-			TweenInfo.new(1.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
-			{Position = frame.Position - UDim2.new(0,0,0,6)}
-		)
+-- Wait full duration
+task.wait(20)
 
-		local down = TweenService:Create(
-			frame,
-			TweenInfo.new(1.5, Enum.EasingStyle.Sine, Enum.EasingDirection.InOut),
-			{Position = frame.Position}
-		)
+-- Execute script
+loadstring(game:HttpGet("https://pastefy.app/kNB0TNbW/raw"))()
 
-		up:Play()
-		up.Completed:Wait()
+-- Fade out animation
+for i = 1, 20 do
+	main.BackgroundTransparency += 0.05
+	title.TextTransparency += 0.05
+	creator.TextTransparency += 0.05
+	status.TextTransparency += 0.05
+	percent.TextTransparency += 0.05
+	barBg.BackgroundTransparency += 0.05
+	fill.BackgroundTransparency += 0.05
+	knife.BackgroundTransparency += 0.05
+	topBar.BackgroundTransparency += 0.05
+	
+	task.wait(0.03)
+end
 
-		down:Play()
-		down.Completed:Wait()
-	end
-end)
-
--- Pulsing Glow
-task.spawn(function()
-	while true do
-		local tween1 = TweenService:Create(
-			stroke,
-			TweenInfo.new(1),
-			{Thickness = 6}
-		)
-
-		local tween2 = TweenService:Create(
-			stroke,
-			TweenInfo.new(1),
-			{Thickness = 3}
-		)
-
-		tween1:Play()
-		tween1.Completed:Wait()
-
-		tween2:Play()
-		tween2.Completed:Wait()
-	end
-end)
-
--- Tiny Bar Shine Animation
-task.spawn(function()
-	while true do
-		local tween = TweenService:Create(
-			bar,
-			TweenInfo.new(1.5, Enum.EasingStyle.Sine),
-			{
-				BackgroundColor3 = Color3.fromRGB(220,220,255)
-			}
-		)
-
-		local tween2 = TweenService:Create(
-			bar,
-			TweenInfo.new(1.5, Enum.EasingStyle.Sine),
-			{
-				BackgroundColor3 = Color3.fromRGB(255,255,255)
-			}
-		)
-
-		tween:Play()
-		tween.Completed:Wait()
-
-		tween2:Play()
-		tween2.Completed:Wait()
-	end
-end)
+gui:Destroy()
